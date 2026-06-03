@@ -6,7 +6,7 @@ const testimonials = [
   {
     name: 'Ismael Malaver',
     role: 'Médico UCC Santa Marta COL',
-    avatar: 'IM',
+    avatar: '/testimonials/FOTO-ISMAEL-150x150.jpg',
     rating: 4.5,
     text: 'Estoy agradecido con el equipo de Argen Medical porque gracias a ellos hoy en día he podido hacer mi sueño realidad de cursar una residencia médica y en el área que me gusta. Definitivamente es la mejor agencia que los médicos pueden elegir.',
     country: 'Colombia',
@@ -14,7 +14,7 @@ const testimonials = [
   {
     name: 'Duberlys Zuleta',
     role: 'Médico Romulo Gallego VEN',
-    avatar: 'DZ',
+    avatar: '/testimonials/FOTO-DUBERLYS-298x300.jpg',
     rating: 4.5,
     text: 'Debido a la falta de oportunidad que existe en Venezuela yo tomé la decisión de emigrar a Argentina y es la mejor opción que he tomado en mi vida porque aquí se me ha dado la oportunidad de cumplir mis sueños de hacer una residencia médica.',
     country: 'Venezuela',
@@ -22,7 +22,7 @@ const testimonials = [
   {
     name: 'Emily Velandia',
     role: 'Médico Univ. Libre COL',
-    avatar: 'EV',
+    avatar: '/testimonials/FOTO-EMILY-150x150.jpg',
     rating: 5,
     text: 'Lo más importante es tener decisión y yo escogí Argentina para especializarme porque es un país donde te van a abrir las puertas y te van a brindar opciones para que seas especialista ya que en Colombia esa posibilidad no existe por la falta de oportunidad.',
     country: 'Colombia',
@@ -130,7 +130,10 @@ export function TestimonialsSection() {
                     whileHover={{ scale: 1.1 }}
                     className="w-14 h-14 bg-secondary/20 rounded-full flex items-center justify-center text-secondary font-bold text-lg"
                   >
-                    {testimonial.avatar}
+                    {/* Avatar */}
+                    <div className="w-14 h-14 bg-secondary/20 rounded-full flex items-center justify-center text-secondary font-bold text-lg">
+                      <img src={testimonial.avatar} alt={testimonial.name} className="w-full h-full object-cover rounded-full" />
+                    </div>
                   </motion.div>
                   <div>
                     <h4 className="font-bold text-foreground">{testimonial.name}</h4>
@@ -174,10 +177,12 @@ export function TestimonialsSection() {
               {`"${testimonials[currentIndex].text}"`}
             </p>
 
+
             {/* Author */}
             <div className="flex items-center gap-4">
+              {/* Avatar */}
               <div className="w-14 h-14 bg-secondary/20 rounded-full flex items-center justify-center text-secondary font-bold text-lg">
-                {testimonials[currentIndex].avatar}
+                <img src={testimonials[currentIndex].avatar} alt={testimonials[currentIndex].name} className="w-full h-full object-cover rounded-full" />
               </div>
               <div>
                 <h4 className="font-bold text-foreground">{testimonials[currentIndex].name}</h4>

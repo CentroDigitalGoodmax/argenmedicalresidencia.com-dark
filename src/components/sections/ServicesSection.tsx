@@ -9,6 +9,7 @@ const services = [
     features: ['Evaluación de requisitos', 'Gestión de documentos', 'Seguimiento continuo', 'Preparación de exámenes'],
     color: 'secondary',
     href: '#homologacion-medica',
+    backgroundImage: '/service/servicio-01.png',
   },
   {
     icon: FileCheck,
@@ -17,6 +18,7 @@ const services = [
     features: ['Proceso especializado', 'Apoyo integral', 'Documentación completa', 'Asesoría experta'],
     color: 'blue',
     href: '#homologacion-odontologia',
+    backgroundImage: '/service/servicio-02.png',
   },
   {
     icon: Plane,
@@ -25,6 +27,7 @@ const services = [
     features: ['Análisis de caso', 'Tipos de visado', 'Trámites migratorios', 'Acompañamiento legal'],
     color: 'emerald',
     href: '#visado',
+    backgroundImage: '/service/servicio-03.png',
   },
 ]
 
@@ -124,9 +127,19 @@ export function ServicesSection() {
                 key={service.title}
                 variants={cardVariants}
                 whileHover={{ y: -8 }}
-                className="group"
+                className="group relative overflow-hidden rounded-3xl"
               >
-                <div className={`glass rounded-3xl p-8 h-full border ${colors.border} transition-all duration-300 group-hover:shadow-2xl ${colors.glow}`}>
+                {/* Imagen de fondo */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                  style={{ backgroundImage: `url(${service.backgroundImage})` }}
+                />
+                
+                {/* Overlay oscuro para las letras */}
+                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm group-hover:bg-black/50 transition-all duration-300" />
+                
+                {/* Contenido */}
+                <div className={`relative glass rounded-3xl p-8 h-full border ${colors.border} transition-all duration-300 group-hover:shadow-2xl ${colors.glow} bg-transparent`}>
                   {/* Icon */}
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
@@ -136,19 +149,19 @@ export function ServicesSection() {
                   </motion.div>
 
                   {/* Title */}
-                  <h3 className={`text-2xl font-bold text-foreground mb-4 group-hover:${colors.text} transition-colors`}>
+                  <h3 className={`text-2xl font-bold text-white mb-4 group-hover:${colors.text} transition-colors`}>
                     {service.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                  <p className="text-gray-200 mb-6 leading-relaxed">
                     {service.description}
                   </p>
 
                   {/* Features */}
                   <ul className="space-y-3 mb-8">
                     {service.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-3 text-muted-foreground">
+                      <li key={feature} className="flex items-center gap-3 text-gray-200">
                         <div className={`w-1.5 h-1.5 rounded-full ${colors.bg.replace('/10', '')} ${colors.text}`} />
                         {feature}
                       </li>

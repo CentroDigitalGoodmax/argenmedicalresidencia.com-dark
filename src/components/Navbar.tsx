@@ -274,7 +274,7 @@ export function Navbar() {
                 )
               })}
               <motion.a
-                href="https://argenmedical.loyverse.store"
+                href="https://app.argenmedicalresidencia.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, x: -20 }}
