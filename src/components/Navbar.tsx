@@ -8,7 +8,7 @@ const navItems = [
   { name: 'Sobre Nosotros', href: '/sobre-nosotros' },
   { 
     name: 'Servicios', 
-    href: '/servicios',
+    href: '#servicios',
     children: [
       { name: 'Visado y Residencia Migratoria', href: '/servicios/visado-residencia' },
       { name: 'Homologación de Medicina', href: '/servicios/homologacion-medicina' },
@@ -19,7 +19,7 @@ const navItems = [
   },
   { 
     name: '¿Países donde Homologar?', 
-    href: '/paises',
+    href: '#paises',
     children: [
       { name: 'Argentina', href: '/paises/argentina' },
       { name: 'España', href: '/paises/espana' },
@@ -50,6 +50,25 @@ export function Navbar() {
     setMobileDropdown(null)
   }, [location])
 
+  // Función para verificar si un item está activo
+  const isItemActive = (item: typeof navItems[0]) => {
+    if (item.children) {
+      // Verificar si alguna ruta hija está activa
+      return item.children.some(child => 
+        location.pathname === child.href || location.pathname.startsWith(child.href + '/')
+      )
+    } else {
+      // Para items sin hijos, comparación directa
+      return location.pathname === item.href || location.pathname.startsWith(item.href + '/')
+    }
+  }
+
+  // Función para manejar clic en items con dropdown (evitar navegación)
+  const handleDropdownClick = (e: React.MouseEvent, item: typeof navItems[0]) => {
+    e.preventDefault()
+    setActiveDropdown(activeDropdown === item.name ? null : item.name)
+  }
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -68,66 +87,76 @@ export function Navbar() {
             whileTap={{ scale: 0.95 }}
           >
             <Link to="/" className="flex items-center gap-3">
-              <div className="relative">
-                <div className="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
-                  <span className="text-secondary-foreground font-bold text-xl">A</span>
-                </div>
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-primary rounded-sm border-2 border-background" />
-              </div>
-              <div className="hidden sm:block">
-                <span className="text-xl font-bold text-foreground tracking-tight">ARGEN</span>
-                <span className="text-xl font-bold text-secondary tracking-tight"> MEDICAL</span>
-              </div>
+              <img src="/logo-white.png" alt="Logo" className="w-auto h-10 object-contain" />
             </Link>
           </motion.div>
 
           <div className="hidden xl:flex items-center gap-1">
-            {navItems.map((item) => (
-              <div 
-                key={item.name}
-                className="relative"
-                onMouseEnter={() => item.children && setActiveDropdown(item.name)}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                <Link
-                  to={item.href}
-                  className={`px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 group ${
-                    location.pathname === item.href || location.pathname.startsWith(item.href + '/')
-                      ? 'text-secondary'
-                      : 'text-muted-foreground hover:text-foreground'
-                  }`}
+            {navItems.map((item) => {
+              const isActive = isItemActive(item)
+              
+              return (
+                <div 
+                  key={item.name}
+                  className="relative"
+                  onMouseEnter={() => item.children && setActiveDropdown(item.name)}
+                  onMouseLeave={() => setActiveDropdown(null)}
                 >
-                  <motion.span whileHover={{ y: -2 }}>
-                    {item.name}
-                  </motion.span>
-                  {item.children && (
-                    <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === item.name ? 'rotate-180' : ''}`} />
-                  )}
-                </Link>
-                
-                <AnimatePresence>
-                  {item.children && activeDropdown === item.name && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-full left-0 mt-2 w-64 glass rounded-xl p-2 shadow-xl"
+                  {item.children ? (
+                    // Para items con dropdown, usamos button
+                    <button
+                      onClick={(e) => handleDropdownClick(e, item)}
+                      className={`px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 group ${
+                        isActive
+                          ? 'text-secondary'
+                          : 'text-muted-foreground hover:text-foreground'
+                      }`}
                     >
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.name}
-                          to={child.href}
-                          className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
-                        >
-                          {child.name}
-                        </Link>
-                      ))}
-                    </motion.div>
+                      <motion.span whileHover={{ y: -2 }}>
+                        {item.name}
+                      </motion.span>
+                      <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === item.name ? 'rotate-180' : ''}`} />
+                    </button>
+                  ) : (
+                    // Para items sin dropdown, usamos Link
+                    <Link
+                      to={item.href}
+                      className={`px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 group ${
+                        isActive
+                          ? 'text-secondary'
+                          : 'text-muted-foreground hover:text-foreground'
+                      }`}
+                    >
+                      <motion.span whileHover={{ y: -2 }}>
+                        {item.name}
+                      </motion.span>
+                    </Link>
                   )}
-                </AnimatePresence>
-              </div>
-            ))}
+                  
+                  <AnimatePresence>
+                    {item.children && activeDropdown === item.name && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute top-full left-0 mt-2 w-64 glass rounded-xl p-2 shadow-xl z-50"
+                      >
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.name}
+                            to={child.href}
+                            className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
+                          >
+                            {child.name}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )
+            })}
           </div>
 
           <div className="hidden xl:flex items-center gap-4">
@@ -174,57 +203,76 @@ export function Navbar() {
             className="xl:hidden glass mt-4 mx-4 rounded-2xl overflow-hidden max-h-[80vh] overflow-y-auto"
           >
             <div className="p-4 space-y-1">
-              {navItems.map((item, i) => (
-                <div key={item.name}>
-                  {item.children ? (
-                    <>
-                      <motion.button
+              {navItems.map((item, i) => {
+                const isActive = isItemActive(item)
+                
+                return (
+                  <div key={item.name}>
+                    {item.children ? (
+                      <>
+                        <motion.button
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.05 }}
+                          className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-colors ${
+                            isActive
+                              ? 'text-secondary bg-muted/30'
+                              : 'text-foreground hover:bg-muted/50'
+                          }`}
+                          onClick={() => setMobileDropdown(mobileDropdown === item.name ? null : item.name)}
+                        >
+                          {item.name}
+                          <ChevronDown className={`w-4 h-4 transition-transform ${mobileDropdown === item.name ? 'rotate-180' : ''}`} />
+                        </motion.button>
+                        <AnimatePresence>
+                          {mobileDropdown === item.name && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="pl-4 space-y-1"
+                            >
+                              {item.children.map((child) => {
+                                const isChildActive = location.pathname === child.href
+                                return (
+                                  <Link
+                                    key={child.name}
+                                    to={child.href}
+                                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                                      isChildActive
+                                        ? 'text-secondary bg-muted/30'
+                                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
+                                    }`}
+                                  >
+                                    {child.name}
+                                  </Link>
+                                )
+                              })}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </>
+                    ) : (
+                      <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.05 }}
-                        className="w-full flex items-center justify-between px-4 py-3 text-foreground hover:bg-muted/50 rounded-lg transition-colors"
-                        onClick={() => setMobileDropdown(mobileDropdown === item.name ? null : item.name)}
                       >
-                        {item.name}
-                        <ChevronDown className={`w-4 h-4 transition-transform ${mobileDropdown === item.name ? 'rotate-180' : ''}`} />
-                      </motion.button>
-                      <AnimatePresence>
-                        {mobileDropdown === item.name && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="pl-4 space-y-1"
-                          >
-                            {item.children.map((child) => (
-                              <Link
-                                key={child.name}
-                                to={child.href}
-                                className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/30 rounded-lg transition-colors"
-                              >
-                                {child.name}
-                              </Link>
-                            ))}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </>
-                  ) : (
-                    <motion.div
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.05 }}
-                    >
-                      <Link
-                        to={item.href}
-                        className="block px-4 py-3 text-foreground hover:bg-muted/50 rounded-lg transition-colors"
-                      >
-                        {item.name}
-                      </Link>
-                    </motion.div>
-                  )}
-                </div>
-              ))}
+                        <Link
+                          to={item.href}
+                          className={`block px-4 py-3 rounded-lg transition-colors ${
+                            isActive
+                              ? 'text-secondary bg-muted/30'
+                              : 'text-foreground hover:bg-muted/50'
+                          }`}
+                        >
+                          {item.name}
+                        </Link>
+                      </motion.div>
+                    )}
+                  </div>
+                )
+              })}
               <motion.a
                 href="https://argenmedical.loyverse.store"
                 target="_blank"

@@ -133,37 +133,27 @@ export function HeroSection() {
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             >
-              <div className="glass rounded-3xl p-8 relative overflow-hidden">
+              <div className="glass rounded-3xl p-8 pb-0 relative overflow-hidden">
                 {/* Decorative gradient */}
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="relative hidden lg:block"
+                >
+                  <div className="absolute inset-0 bg-gradient-gold rounded-full blur-3xl opacity-30 animate-glow-pulse" />
+                  <img
+                    src="/foto-hero-inicio.png"
+                    alt="Profesional médico"
+                    className="relative w-full max-w-md mx-auto animate-float drop-shadow-2xl -mb-4"
+                  />
+                </motion.div>
+
+                
                 <div className="absolute top-0 right-0 w-40 h-40 bg-secondary/30 rounded-full blur-3xl" />
                 
-                <div className="relative z-10">
-                  <div className="w-20 h-20 bg-secondary/20 rounded-2xl flex items-center justify-center mb-6">
-                    <svg className="w-10 h-10 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                    </svg>
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold text-foreground mb-3">
-                    Tu sueño, nuestro compromiso
-                  </h3>
-                  
-                  <p className="text-muted-foreground mb-6">
-                    Caminamos contigo desde el inicio hasta lograrlo, cuidando cada detalle del proceso.
-                  </p>
-
-                  {/* Stats */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-muted/50 rounded-xl p-4 text-center">
-                      <div className="text-3xl font-bold text-secondary">500+</div>
-                      <div className="text-sm text-muted-foreground">Médicos homologados</div>
-                    </div>
-                    <div className="bg-muted/50 rounded-xl p-4 text-center">
-                      <div className="text-3xl font-bold text-secondary">98%</div>
-                      <div className="text-sm text-muted-foreground">Tasa de éxito</div>
-                    </div>
-                  </div>
-                </div>
+                
               </div>
             </motion.div>
 

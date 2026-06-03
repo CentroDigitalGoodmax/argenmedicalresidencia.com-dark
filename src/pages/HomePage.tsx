@@ -3,7 +3,6 @@ import { BenefitsSection } from '../components/sections/BenefitsSection'
 import { ServicesSection } from '../components/sections/ServicesSection'
 import { ProcessSection } from '../components/sections/ProcessSection'
 import { TestimonialsSection } from '../components/sections/TestimonialsSection'
-import { CTASection } from '../components/sections/CTASection'
 
 export function HomePage() {
   return (
@@ -13,7 +12,6 @@ export function HomePage() {
       <ServicesSection />
       <ProcessSection />
       <TestimonialsSection />
-      <CTASection />
     </main>
   )
 }

@@ -42,7 +42,8 @@ export function Footer() {
               viewport={{ once: true }}
               className="flex items-center gap-3 mb-6"
             >
-              <div className="relative">
+              <img src="/logo-white.png" alt="Logo" className="w-50 h-auto" />
+              { /* <div className="relative">
                 <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center">
                   <span className="text-secondary-foreground font-bold text-2xl">A</span>
                 </div>
@@ -51,7 +52,7 @@ export function Footer() {
               <div>
                 <span className="text-2xl font-bold text-foreground tracking-tight">ARGEN</span>
                 <span className="text-2xl font-bold text-secondary tracking-tight"> MEDICAL</span>
-              </div>
+              </div> */ }
             </motion.div>
             
             <motion.p

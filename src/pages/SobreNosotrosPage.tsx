@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Heart, Users, Award, Target, CheckCircle, ArrowRight } from 'lucide-react'
+import { Heart, Users, Award, Target, CheckCircle, ArrowRight, Play, Star, Check } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 const fadeInUp = {
@@ -69,62 +69,194 @@ function AnimatedSection({ children, className = '' }: { children: React.ReactNo
 export function SobreNosotrosPage() {
   return (
     <main className="pt-20">
-      {/* Hero Section */}
-      <section className="relative min-h-[70vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary/90" />
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-secondary/20 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-float-delayed" />
-        </div>
-        
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-                Ya estuve donde{' '}
-                <span className="text-secondary">tú estás.</span>
-              </h1>
-              <p className="mt-6 text-xl md:text-2xl text-muted-foreground">
-                Hoy te acompaño a hacerlo bien
-              </p>
+      {/* Hero Section Mejorado */}
+        <section className="relative min-h-screen flex items-center overflow-hidden">
+          {/* Fondo dinámico con gradiente y patrones */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-primary/90" />
+          
+          {/* Patrón de puntos de fondo */}
+          <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+          
+          {/* Círculos decorativos animados */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-20 left-10 w-72 h-72 bg-secondary/20 rounded-full blur-3xl animate-float" />
+            <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-float-delayed" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-3xl animate-pulse-slow" />
+          </div>
+
+          {/* Líneas decorativas */}
+          <div className="absolute left-0 top-1/3 w-32 h-px bg-gradient-to-r from-transparent via-secondary to-transparent opacity-50" />
+          <div className="absolute right-0 bottom-1/3 w-32 h-px bg-gradient-to-r from-transparent via-secondary to-transparent opacity-50" />
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10">
+            <div className="grid lg:grid-cols-2 gap-20 items-center">
+              {/* Columna izquierda - Texto */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mt-8"
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
               >
-                <Link
-                  to="/contacto"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-secondary-foreground font-semibold rounded-full hover:brightness-110 transition-all"
+                {/* Badge flotante */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-6"
                 >
-                  Quiero Mi Asesoría
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary" />
+                  </span>
+                  <span className="text-sm font-medium text-white">Más de 10 años de experiencia</span>
+                </motion.div>
+
+                <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight">
+                  Ya estuve donde{' '}
+                  <span className="relative inline-block">
+                    <span className="relative z-10 text-secondary">tú estás.</span>
+                    <svg className="absolute bottom-2 left-0 w-full h-3 -z-0" viewBox="0 0 200 10" preserveAspectRatio="none">
+                      <path d="M0 5 Q 50 10 100 5 T 200 5" stroke="currentColor" strokeWidth="3" fill="none" className="text-secondary/30" />
+                    </svg>
+                  </span>
+                </h1>
+                
+                <p className="mt-6 text-xl md:text-2xl text-white/80 leading-relaxed">
+                  Hoy te acompaño a hacerlo bien. Soluciones reales para resultados extraordinarios.
+                </p>
+
+                {/* Estadísticas rápidas */}
+                <div className="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-white/20">
+                  <div>
+                    <p className="text-2xl font-bold text-secondary">500+</p>
+                    <p className="text-sm text-white/60">Clientes satisfechos</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-secondary">98%</p>
+                    <p className="text-sm text-white/60">Tasa de éxito</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-secondary">24/7</p>
+                    <p className="text-sm text-white/60">Soporte continuo</p>
+                  </div>
+                </div>
+
+                {/* CTA y enlaces adicionales */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="mt-8 flex flex-col sm:flex-row gap-4"
+                >
+                  <Link
+                    to="/contacto"
+                    className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-secondary text-secondary-foreground font-semibold rounded-full hover:brightness-110 transition-all hover:gap-3 shadow-lg hover:shadow-secondary/25"
+                  >
+                    Quiero Mi Asesoría
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                  
+                  <Link
+                    to="/servicios"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-full hover:bg-white/20 transition-all border border-white/20"
+                  >
+                    Ver Servicios
+                    <Play className="w-4 h-4" />
+                  </Link>
+                </motion.div>
+              
               </motion.div>
-            </motion.div>
-            
+
+              {/* Columna derecha - Imagen con efectos */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="relative"
+              >
+                {/* Marco decorativo */}
+                <div className="absolute -top-4 -left-4 w-full h-full border-2 border-secondary/30 rounded-2xl z-0" />
+                
+                {/* Badge flotante arriba */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="absolute -top-6 -right-6 z-20 bg-gradient-to-r from-secondary to-secondary/80 text-white px-4 py-2 rounded-full shadow-lg"
+                >
+                  <span className="text-sm font-semibold">✨ Fundador</span>
+                </motion.div>
+
+                {/* Imagen principal con efecto glassmorphism */}
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl z-10 group">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-primary/40 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <img
+                    src="/foto-hero-nosotros.png"
+                    alt="Ricardo José Dávila López - Fundador de Argen Medical"
+                    className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
+                  />
+                  
+                  {/* Overlay de información */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 z-20 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                    <p className="text-white font-semibold">Ricardo José Dávila López</p>
+                    <p className="text-white/70 text-sm">Fundador & CEO</p>
+                  </div>
+                </div>
+
+                {/* Elementos flotantes decorativos */}
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="absolute -bottom-8 -right-8 bg-white/10 backdrop-blur-md rounded-xl p-4 z-20 border border-white/20"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center">
+                      <Award className="w-5 h-5 text-secondary" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-white/60">Certificado</p>
+                      <p className="text-sm font-semibold text-white">Profesional</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.7 }}
+                  className="absolute -top-12 -left-12 bg-white/10 backdrop-blur-md rounded-xl p-3 z-20 border border-white/20 hidden lg:block"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
+                      <Check className="w-4 h-4 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-white/60">Activo</p>
+                      <p className="text-xs font-semibold text-white">Siempre disponible</p>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
+
+            {/* Scroll indicator */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1, duration: 1 }}
+              className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
             >
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-hf3MecZXl3wgjnkdLcjnWdqSNzHyp0.png"
-                  alt="Ricardo José Dávila López - Fundador de Argen Medical"
-                  className="w-full h-auto object-cover"
+              <span className="text-white/50 text-xs">Desliza</span>
+              <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+                <motion.div
+                  animate={{ y: [0, 12, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5 }}
+                  className="w-1.5 h-1.5 bg-white/50 rounded-full mt-2"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
               </div>
             </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
 
       {/* Story Section */}
       <section className="py-20 bg-muted/30">

@@ -66,7 +66,7 @@ export function CTASection() {
                 </motion.a>
 
                 <motion.a
-                  href="tel:+541234567890"
+                  href="tel:+5491137929908"
                   whileHover={{ x: 5 }}
                   className="flex items-center gap-4 text-muted-foreground hover:text-secondary transition-colors"
                 >
@@ -77,7 +77,7 @@ export function CTASection() {
                 </motion.a>
 
                 <motion.a
-                  href="https://wa.me/1234567890"
+                  href="https://wa.me/5491137929908"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ x: 5 }}
